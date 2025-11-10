@@ -15,8 +15,6 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
     if (res.ok) {
       localStorage.setItem("authToken", data.token);
       window.location.href = "dashboard.html";
-    } else {
-      document.getElementById("loginError").textContent = "Password salah!";
     }
   } catch (err) {
     console.error(err);

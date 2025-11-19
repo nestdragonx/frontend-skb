@@ -185,3 +185,11 @@ td {
 tr {
   height: auto;
 }
+
+textarea{
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}

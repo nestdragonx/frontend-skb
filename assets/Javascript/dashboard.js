@@ -34,7 +34,15 @@ import { BACKEND_URL } from "./config.js";
       <div class="card">
         <h3>🖼️ Update Carousel</h3>
         <input type="text" id="carouselTitle" placeholder="Judul Gambar">
+        <label for="judul">Input Gambar</label>
         <input type="file" id="carouselImage" accept="image/*">
+        <label for="judul">Judul Kegiatan</label>
+        <input type="text" id="judul" name="judul" placeholder="Masukkan judul kegiatan">
+        <label for="deskripsi">Deskripsi Kegiatan</label>
+        <textarea id="deskripsi" name="deskripsi" placeholder="Masukkan deskripsi kegiatan"></textarea>
+        <label for="judul">Input PDF</label>
+        <input type="file" id="carouselPDF" accept="application/pdf">
+        
         <button id="uploadCarousel" class="btn">Upload ke Carousel</button>
        <div id="carouselPreview" class="preview"></div>
       </div>
@@ -52,6 +60,7 @@ import { BACKEND_URL } from "./config.js";
           <tbody id="carouselImageTableData"></tbody>
         </table>
       </div>
+
       <!-- Jumlah Peserta -->
       <div class="card">
         <h3>👩‍🎓 Jumlah Peserta</h3>
@@ -237,10 +246,19 @@ function attachDashboardEventListeners() {
   uploadBtn.addEventListener("click", async () => {
     const file = document.getElementById("carouselImage").files[0];
     const imageAlt = document.getElementById("carouselTitle").value;
+    const judulKegiatan = document.getElementById("judul").value;
+    const deskripsiKegiatan = document.getElementById("deskripsi").value;
+    const pdfFile = document.getElementById("carouselPDF").files[0];
+
     if (!file) return alert("Pilih gambar dulu!");
+    if (!judulKegiatan.trim()) return alert("Judul kegiatan wajib diisi!");
+    if (!deskripsiKegiatan.trim()) return alert("Deskripsi wajib diisi!");
+    if (!pdfFile) return alert("Upload file PDF!");
     const formData = new FormData();
     formData.append("image", file);
+    formData.append("pdf", pdfFile);
 
+    
     try {
       const res = await fetch(`${BACKEND_URL}/upload`, {
         method: "POST",
@@ -257,7 +275,7 @@ function attachDashboardEventListeners() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
-          body: JSON.stringify({ imageAlt: imageAlt, imageUrl: source, cloudinaryId: cloudinaryId }),
+          body: JSON.stringify({ imageAlt: imageAlt, imageUrl: source, title: judulKegiatan, description: deskripsiKegiatan, pdfUrl: data?.data?.pdfUrl ,pdfCloudinaryId: data?.data?.pdfCloudinaryId ,cloudinaryId: cloudinaryId }),
         });
         const dataMongo = await saveToMongo.json();
         if (!saveToMongo.ok || !dataMongo.success) {

@@ -1,23 +1,34 @@
+/* === WRAPPER UTAMA === */
 .carousel-wrapper {
   display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  width: 85%;
+  max-width: 850px;
+  height: 400px;
+  margin: 80px auto;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
 }
 
+/* === BAGIAN KIRI / CONTAINER UTAMA === */
 .carousel-container {
+  flex: 3;
+  min-width: 320px;
   position: relative;
-  width: 80%;
-  max-width: 700px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 .carousel {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 100%;
+  min-height: 400px;
 }
 
 .carousel-item {
@@ -35,34 +46,44 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 12px;
+  display: block;
 }
 
+/* === TOMBOL NAVIGASI === */
 .control {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: none;
+  background: rgba(0,0,0,0.4);
   border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   transition: background 0.3s ease;
-  user-select: none;
+  z-index: 10;
 }
 
-.control.prev {
-  left: 20px;
-}
-.control.next {
-  right: 20px;
+.control:hover {
+  background: rgba(0,0,0,0.6);
 }
 
-.control.prev img,
-.control.next img {
-  width: 2rem;
-  height: auto;
+.control img {
+  width: 20px;
   filter: invert(1);
 }
 
+.control.prev {
+  left: 15px;
+}
+.control.next {
+  right: 15px;
+}
+
+/* === INDIKATOR DOT === */
 .indicators {
   position: absolute;
   bottom: 15px;
@@ -74,7 +95,7 @@
   display: inline-block;
   width: 10px;
   height: 10px;
-  margin: 0 6px;
+  margin: 0 5px;
   background: rgba(255, 255, 255, 0.6);
   border-radius: 50%;
   cursor: pointer;
@@ -82,5 +103,103 @@
 }
 
 .dot.active {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* === BAGIAN KANAN (INFO) === */
+.carrousel-right {
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background: #fafafa;
+  padding: 25px;
+}
+
+/* === BOX INFO === */
+.info-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+}
+
+.info-box h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.info-box p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+/* === TOMBOL DOWNLOAD === */
+.btn-download {
+  align-self: flex-end;
+  margin-top: auto;
+  background: #ffd500;
+  color: #000;
+  padding: 5px 10px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.75rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.btn-download:hover {
+  background: #e5c200;
+  transform: scale(1.05);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .carousel-wrapper {
+    flex-direction: column;
+    width: 95%;
+    max-width: 600px;
+  }
+
+  .carousel-container,
+  .carrousel-right {
+    width: 100%;
+  }
+
+  .carrousel-right {
+    padding: 25px;
+  }
+
+  .info-box {
+    align-items: center;
+    text-align: center;
+  }
+
+  .info-box h2 {
+    font-size: 1.4rem;
+  }
+
+  .info-box p {
+    font-size: 0.9rem;
+  }
+
+  .btn-download {
+    align-self: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    padding: 10px 25px;
+  }
+}
+
+body.dark-mode .carrousel-right{
+  background-color: #1e1e1e;
+  color: #fff;
 }

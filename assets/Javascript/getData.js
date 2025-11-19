@@ -35,6 +35,7 @@ if (carouselContainer) {
           carouselContainer.innerHTML = ""; // Kosongkan container
           images.forEach((imgData, index) => {
             const carouselItem = document.createElement("div");
+
             carouselItem.className = `carousel-item ${index === 0 ? 'active' : ''}`;
             const img = document.createElement("img");
             img.src = imgData.imageUrl; // Asumsi backend mengembalikan { imageUrl: '...' }
@@ -42,10 +43,14 @@ if (carouselContainer) {
             
             carouselItem.appendChild(img);
             carouselContainer.appendChild(carouselItem);
-          });
 
-          // Panggil inisialisasi carousel SETELAH item dirender
-          initializeCarousel();
+            const infoBox = document.getElementById("infoBox");
+            infoBox.appendChild(judulKegiatan);
+            infoBox.appendChild(keteranganKegiatan);
+            infoBox.appendChild(downloadLink);
+          });
+          console.log("getData: ",images)
+          initializeCarousel(images);
         }
       } else {
         console.error("Error fetching images:", data.error || "Gagal mengambil gambar");
@@ -55,3 +60,4 @@ if (carouselContainer) {
     }
   })(); // <-- Tambahkan () untuk langsung memanggil fungsi async
 }
+
